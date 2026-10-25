@@ -1,7 +1,13 @@
+@font-face {
+    font-family: flop;
+    src: url("Blinker-Regular.ttf");
+}
+
 body {
     margin: 0;
     height: 100vh;
     background-color: black;
+    font-family: flop;
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
