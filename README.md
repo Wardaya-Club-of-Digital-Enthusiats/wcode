@@ -15,6 +15,4 @@ The homepage of SMA Wardaya's coding club!
 - HTML
 - CSS
 - JavaScript
-- Firebase
-
-Hello there, I edited this MarkDown file on my phone with a bluetooth keyboard on vim. I don't like this.
+- Firebasetest
