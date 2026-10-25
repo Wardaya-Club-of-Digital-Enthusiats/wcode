@@ -1,39 +1,14 @@
-window.onkeydown = (event) => { if (event.key == 'Enter') login(); };
-
-const id_input = document.getElementById('id_input');
-const span_text = document.getElementById("span_text");
-async function login () {
-    const siphoned_value = id_input.value.trim().toUpperCase();
-    id_input.value = siphoned_value;
-
-    if (siphoned_value.length != 6) { return span_text.innerText = 'Code must be 6 characters'; }
-
-    span_text.innerText = "Looking for id code";
-    const response = await fetch('/.netlify/functions/login', {
-        method: 'POST',
-        body: JSON.stringify({
-            id_code: siphoned_value
-        })
-    })
-        .then(response => response.json());
-
-    if (response.message == 'user not found') { return span_text.innerText = 'Couldn\'t find anyone with that code'; }
-    
-    span_text.innerText = 'Fantastic, welcome!';
-
-    window.localStorage.setItem('id_code', siphoned_value);
-    window.localStorage.setItem('name', response.user_info.name);
-    window.localStorage.setItem('subject', response.user_info.subject);
-    window.localStorage.setItem('role', response.user_info.role);
-
-    window.location.href = '../dashboard'
-}
-
 const glitch_text = document.getElementById("glitch_text");
 const the_alphabet = "QWERTYUIOPASGHJKLZXCBNMqwertyuiopasdfghjklzxcvbnm1234567890!@#$%^&*()-=[]\;',._+{|:<>";
 
+const bounding_rect = glitch_text.getBoundingClientRect();
 const glitch_container = document.getElementById("glitch_container");
+let last_update_time = Date.now() - 1000;
 glitch_container.onmousemove = (e) => {
+    const last_update_delta = Date.now() - last_update_time;
+    if (last_update_delta < 1000/20) { return }
+    last_update_time = Date.now();
+
     let new_text = ""
 
     for (let i = 0; i < 10000; i++) {
@@ -42,7 +17,6 @@ glitch_container.onmousemove = (e) => {
 
     glitch_text.innerText = new_text;
 
-    const bounding_rect = glitch_text.getBoundingClientRect();
     const x_pos = e.clientX - bounding_rect.left;
     const y_pos = e.clientY - bounding_rect.top;
 
